@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/select";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
+  // DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -37,14 +37,7 @@ import Image from "next/image";
 import { SearchBox } from "../../search-box/SearchBox";
 import { SmallTableMenu } from "../../small-table-menu/TableMenu";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
+
 import { cn } from "@/lib/utils";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,6 +45,9 @@ interface DataTableProps<TData, TValue> {
 }
 import { ordersData } from "../../../../constants/ordersData";
 import { filterBarNavigations } from "../../../../constants/filterBarnavigations";
+import { FilterSchedule } from "../../filter-components/Filter-schedule";
+import { FilterPeoples } from "../../filter-components/Filter-peoples";
+import { FilterService } from "../../filter-components/Filter-services";
 
 export function AdminDataTable<TData, TValue>({
   columns,
@@ -69,8 +65,6 @@ export function AdminDataTable<TData, TValue>({
     },
   });
 
-  const [date, setDate] = useState<Date>();
-
   const [filterNav, setFilterNav] = useState<string>("Schedule date");
   return (
     <div className="space-y-6">
@@ -85,7 +79,7 @@ export function AdminDataTable<TData, TValue>({
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-auto h-96 mt-3  mr-2 py-3 rounded-lg flex flex-col px-0"
+            className="w-auto h-96 mt-3  mr-2 py-3 rounded-lg flex flex-col px-0 overflow-y-auto scrollbar-thin"
             align="start"
           >
             <div className="w-full h-full flex md:flex-row flex-col border-b">
@@ -93,7 +87,7 @@ export function AdminDataTable<TData, TValue>({
                 {filterBarNavigations.map((nav) => (
                   <div
                     key={nav.id}
-                    onClick={()=>setFilterNav(nav.title)}
+                    onClick={() => setFilterNav(nav.title)}
                     className={cn(
                       "flex items-center cursor-pointer px-3 py-1 gap-2  rounded-lg justify-between",
                       { "bg-[#E2E8F0]": nav.title == filterNav }
@@ -113,89 +107,9 @@ export function AdminDataTable<TData, TValue>({
                 ))}
               </aside>
               <div className="h-full md:w-96 w-72 p-2 space-y-5">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="" className="text-[13px]">
-                    Show orders for
-                  </label>
-                  <Select>
-                    <SelectTrigger className="shadow-sm">
-                      <SelectValue placeholder="All time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup className=" h-[232px] overflow-y-auto scrollbar-thin scrollbar-track-slate-400 scrollbar-corner-white">
-                        {ordersData.map((val) => (
-                          <SelectItem value={val} key={val}>
-                            {val}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="" className="text-[13px]">
-                      From
-                    </label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? (
-                            format(date, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={date}
-                          onSelect={setDate}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="" className="text-[13px]">
-                      To
-                    </label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? (
-                            format(date, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={date}
-                          onSelect={setDate}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                </div>
+                {filterNav == "Schedule date" && <FilterSchedule />}
+                {filterNav == "People" && <FilterPeoples />}
+                {filterNav == "Services / Products" && <FilterService />}
               </div>
             </div>
             <div className="h-14 flex items-center gap-2 justify-end px-3">
@@ -381,3 +295,4 @@ export function AdminDataTable<TData, TValue>({
     </div>
   );
 }
+export { FilterSchedule };
