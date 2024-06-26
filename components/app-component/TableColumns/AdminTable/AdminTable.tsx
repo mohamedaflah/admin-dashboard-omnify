@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
+  VisibilityState,
 } from "@tanstack/react-table";
 
 import {
@@ -17,14 +18,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {SelectItem, 
+import {
+  SelectItem,
   Select,
   SelectContent,
   SelectGroup,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import Image from "next/image";
+import { SearchBox } from "../../search-box/SearchBox";
+import { TableActionButtons } from "../../Table-actionbuttons/TableActionButtons";
+import { SmallTableMenu } from "../../small-table-menu/TableMenu";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -34,15 +46,83 @@ export function AdminDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+      columnVisibility,
+    },
   });
 
   return (
-    <div>
+    <div className="space-y-6">
+      <div className="w-full flex  justify-between">
+        <button className="h-9 sm:w-auto px-3 rounded-md bg-bgColor-2 flex gap-2 items-center">
+          <Image width={19} height={19} src={"/icons/filter.svg"} alt="" />
+          <span className="font-medium text-sm text-textcolor-1 hidden sm:flex">
+            Add filter
+          </span>
+        </button>
+        <div className="h-9 flex gap-6">
+          <SearchBox />
+          <div className="h-full  items-center gap-8 hidden md:flex">
+            <div>
+              <Image
+                src={"/icons/refresh.svg"}
+                alt="refresh"
+                width={19}
+                height={19}
+              />
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="cursor-pointer">
+                  <Image
+                    src={"/icons/columns.svg"}
+                    alt="refresh"
+                    width={19}
+                    height={19}
+                  />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {column.id}
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <div>
+              <Image
+                src={"/icons/download.svg"}
+                alt="refresh"
+                width={19}
+                height={19}
+              />
+            </div>
+          </div>
+          <SmallTableMenu />
+        </div>
+      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader className="overflow-hidden">
@@ -116,7 +196,9 @@ export function AdminDataTable<TData, TValue>({
               </SelectGroup>
             </SelectContent>
           </Select>
-          <span className="text-sm text-textcolor-2 font-medium">Out of <span className="text-black">150</span></span>
+          <span className="text-sm text-textcolor-2 font-medium">
+            Out of <span className="text-black">150</span>
+          </span>
         </div>
         <div className="flex items-center space-x-2 ">
           <Button

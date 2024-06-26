@@ -32,19 +32,6 @@ export default function Home() {
               className="border-2 border-borderColor"
             />
           </div>
-          <div className="w-full flex  justify-between">
-            <button className="h-9 sm:w-auto px-3 rounded-md bg-bgColor-2 flex gap-2 items-center">
-              <Image width={19} height={19} src={"/icons/filter.svg"} alt="" />
-              <span className="font-medium text-sm text-textcolor-1 hidden sm:flex">
-                Add filter
-              </span>
-            </button>
-            <div className="h-9 flex gap-6">
-              <SearchBox />
-              <TableActionButtons />
-              <SmallTableMenu />
-            </div>
-          </div>
           <div className="w-full ">
             <AdminDataTable columns={adminTableColumns} data={TableDatas}/>
           </div>
