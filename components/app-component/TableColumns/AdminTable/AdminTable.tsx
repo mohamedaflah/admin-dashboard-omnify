@@ -38,10 +38,20 @@ import { SearchBox } from "../../search-box/SearchBox";
 import { TableActionButtons } from "../../Table-actionbuttons/TableActionButtons";
 import { SmallTableMenu } from "../../small-table-menu/TableMenu";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
+import { ordersData } from "../../../../constants/ordersData";
 
 export function AdminDataTable<TData, TValue>({
   columns,
@@ -59,7 +69,9 @@ export function AdminDataTable<TData, TValue>({
     },
   });
 
-  const [selecteCols, setSelectedCols] = useState<string[]>([]);
+  const [date, setDate] = useState<Date>();
+
+  const [filterNav, setFilterNav] = useState<string[]>([]);
   return (
     <div className="space-y-6">
       <div className="w-full flex  justify-between">
@@ -73,11 +85,11 @@ export function AdminDataTable<TData, TValue>({
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-auto h-96 mt-3  mr-2 py-3 rounded-lg flex px-0"
+            className="w-auto h-96 mt-3  mr-2 py-3 rounded-lg flex flex-col px-0"
             align="start"
           >
-            <div className="w-full h-full flex">
-              <aside className="h-full md:w-56 w-48 border-r flex flex-col px-2 gap-2">
+            <div className="w-full h-full flex md:flex-row flex-col border-b">
+              <aside className="h-full md:w-56 w-full border-r flex flex-col px-2 gap-2 bg-bgColor-1">
                 <div className="flex items-center px-3 py-1 gap-2 bg-[#E2E8F0] rounded-lg justify-between">
                   <div className="flex gap-2">
                     <Image
@@ -113,7 +125,7 @@ export function AdminDataTable<TData, TValue>({
                   </div>
                 </div>
               </aside>
-              <div className="h-full md:w-96 w-72 p-2">
+              <div className="h-full md:w-96 w-72 p-2 space-y-5">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="" className="text-[13px]">
                     Show orders for
@@ -123,17 +135,89 @@ export function AdminDataTable<TData, TValue>({
                       <SelectValue placeholder="All time" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup>
-                        <SelectItem value={"20"}>20</SelectItem>
-                        <SelectItem value={"25"}>25</SelectItem>
-                        <SelectItem value={"35"}>35</SelectItem>
-                        <SelectItem value={"40"}>40</SelectItem>
-                        <SelectItem value={"50"}>50</SelectItem>
+                      <SelectGroup className=" h-[232px] overflow-y-auto scrollbar-thin scrollbar-track-slate-400 scrollbar-corner-white">
+                        {ordersData.map((val) => (
+                          <SelectItem value={val} key={val}>
+                            {val}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
                 </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="" className="text-[13px]">
+                      From
+                    </label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {date ? (
+                            format(date, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          onSelect={setDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="" className="text-[13px]">
+                      To
+                    </label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {date ? (
+                            format(date, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          onSelect={setDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div className="h-14 flex items-center gap-2 justify-end px-3">
+              <button className="h-9 px-3 rounded-md bg-[#F4F4F5] text-black font-medium text-sm">
+                Reset to Default
+              </button>
+              <button className="h-9 px-3 rounded-md bg-[#0F172A] text-white text-sm">
+                Apply
+              </button>
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -188,7 +272,7 @@ export function AdminDataTable<TData, TValue>({
                     );
                   })}
                 <div className="w-full grid grid-cols-2 gap-2 h-9">
-                  <button className="w-full h-full flex items-center justify-center border px-3  rounded-lg text-[13px] font-medium">
+                  <button className="w-full h-full flex items-center justify-center border px-3 bg-[#F4F4F5]  rounded-lg text-[13px] font-medium">
                     Reset to default
                   </button>
                   <button className="capitalize bg-[#0F172A] text-white w-full h-full flex items-center justify-center border px-3  rounded-lg text-[13px] font-medium">
