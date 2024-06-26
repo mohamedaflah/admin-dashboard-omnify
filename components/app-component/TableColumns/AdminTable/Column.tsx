@@ -4,17 +4,48 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { TableHeaderTitle } from "../../custom/TableHeaderTitle";
 import { Status } from "../../custom/Status";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const adminTableColumns: ColumnDef<TableData>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        className="shadow-lg border-[#E5E7EB] border-2 mt-[1.5px]"
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        className="shadow-lg border-[#E5E7EB] border-2"
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "created_on",
     header: () => (
       <TableHeaderTitle image="/icons/created.svg" title="Created on" />
     ),
+    cell: ({ row }) => {
+      return <div className="flex items-center h-full w-[175px]">{row.getValue("created_on")}</div>;
+    },
   },
   {
     accessorKey: "payer",
     header: () => <TableHeaderTitle image="/icons/user.svg" title="Payer" />,
+    cell: ({ row }) => {
+      return <div className="flex items-center h-full w-[130px]">{row.getValue("payer")}</div>;
+    },
   },
   {
     accessorKey: "status",
@@ -33,6 +64,10 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     header: () => (
       <TableHeaderTitle image="/icons/hash.svg" title="Payer Phone" />
     ),
+    cell: ({ row }) => {
+      return <div className="flex items-center h-full w-[144px]">{row.getValue("payer_phone")}</div>;
+    },
+    
   },
   {
     accessorKey: "services",

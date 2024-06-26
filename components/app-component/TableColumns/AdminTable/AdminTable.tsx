@@ -17,6 +17,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import {SelectItem, 
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -67,7 +74,10 @@ export function AdminDataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      className="font-medium text-[13px]"
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -90,8 +100,23 @@ export function AdminDataTable<TData, TValue>({
         </Table>
       </div>
       <div className="w-full py-4 flex justify-between">
-        <div className="h-full">
-
+        <div className="h-full flex items-center gap-1 ">
+          <span className="text-sm text-textcolor-2">Displaying</span>
+          <Select>
+            <SelectTrigger className="border-none flex gap-2 bg-bgColor-1 outline-none ring-0 w-16">
+              <SelectValue placeholder="15" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value={"20"}>20</SelectItem>
+                <SelectItem value={"25"}>25</SelectItem>
+                <SelectItem value={"35"}>35</SelectItem>
+                <SelectItem value={"40"}>40</SelectItem>
+                <SelectItem value={"50"}>50</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <span className="text-sm text-textcolor-2 font-medium">Out of <span className="text-black">150</span></span>
         </div>
         <div className="flex items-center space-x-2 ">
           <Button

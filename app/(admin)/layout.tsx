@@ -14,10 +14,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="h-screen w-full flex relative  scrollbar-none " id="ScrollArea">
+    <main className="h-screen w-full flex relative  scrollbar-none bg-bgColor-1" id="ScrollArea">
       {/* Side bar */}
       <SideBar />
-      <section className="w-full  p-5 ">{children}</section>
+      <section className="w-full  p-3  ">{children}</section>
     </main>
   );
 }

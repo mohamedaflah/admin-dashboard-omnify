@@ -11,7 +11,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="w-full h-full">
+    <main className="w-full h-full overflow-x-hidden scrollbar-none bg-white py-2 px-3 rounded-md">
       <div className="w-full flex flex-col gap-6">
         <div className="w-full">
           <h1 className="text-[19px] text-textcolor-1 font-semibold">
