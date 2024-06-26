@@ -11,7 +11,7 @@ export const SideBar = () => {
   return (
     <aside
       className={cn(
-        "hidden md:block min-w-64 h-full sticky top-0 left-0 bg-bgColor-1 px-3 pt-5 transition-all duration-300",
+        "hidden  md:block min-w-64 sticky top-0 left-0 bg-bgColor-1 px-3 pt-5 transition-all duration-300",
         {
           "min-w-20 items-center": !expandSidebar,
         }

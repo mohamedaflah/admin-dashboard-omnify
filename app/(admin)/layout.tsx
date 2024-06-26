@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-import { BigLogo } from "@/components/app-component/biglogo";
+import '../App.css'
 import { SideBar } from "@/components/app-component/sidebar/Sidebar";
 import type { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -16,10 +14,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="h-screen w-full flex relative">
+    <main className="h-screen w-full flex relative  scrollbar-none " id="ScrollArea">
       {/* Side bar */}
       <SideBar />
-      <section className="w-full p-5">{children}</section>
+      <section className="w-full  p-5 ">{children}</section>
     </main>
   );
 }
