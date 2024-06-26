@@ -11,7 +11,7 @@ export const SideBar = () => {
   return (
     <aside
       className={cn(
-        "hidden  md:flex flex-col min-w-64 sticky top-0 left-0 bg-bgColor-1 px-3 pt-5 transition-all duration-300",
+        "hidden  md:flex flex-col justify-between min-w-64 sticky top-0 left-0 bg-bgColor-1 px-3 pt-5 transition-all duration-300",
         {
           "min-w-20 items-center": !expandSidebar,
         }
@@ -130,7 +130,11 @@ export const SideBar = () => {
           {AdminNavigations.map((nav) => (
             <Link
               href={nav.path}
-              className={cn("h-10 items-center flex gap-2 text-textcolor-1 font-medium rounded-md px-3 ",{"bg-white shadow-md":nav.label=="Waitlist"},{"w-10 px-0 flex justify-center":!expandSidebar})}
+              className={cn(
+                "h-10 items-center flex gap-2 text-textcolor-1 font-medium rounded-md px-3 ",
+                { "bg-white shadow-md": nav.label == "Waitlist" },
+                { "w-10 px-0 flex justify-center": !expandSidebar }
+              )}
               key={nav.id}
             >
               <Image width={20} height={20} src={nav.image} alt={nav.label} />
@@ -141,6 +145,29 @@ export const SideBar = () => {
               )}
             </Link>
           ))}
+        </div>
+      </div>
+      <div className="w-full">
+        <div className="w-full">
+
+        </div>
+        <div className="w-full min-h-14 flex">
+          <div className="size-12 flex items-center justify-center">
+            <Image
+              src={"/icons/help-circle.svg"}
+              alt="help"
+              width={19}
+              height={19}
+            />
+          </div>
+          {expandSidebar && (
+            <div className="h-full flex flex-col justify-center">
+              <span className="text-sm">Help center</span>
+              <span className="text-[12px] text-textcolor-2">
+                @2024 Omnify.Inc.{" "}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </aside>
