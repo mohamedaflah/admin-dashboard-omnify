@@ -63,12 +63,81 @@ export function AdminDataTable<TData, TValue>({
   return (
     <div className="space-y-6">
       <div className="w-full flex  justify-between">
-        <button className="h-9 sm:w-auto px-3 rounded-md bg-bgColor-2 flex gap-2 items-center">
-          <Image width={19} height={19} src={"/icons/filter.svg"} alt="" />
-          <span className="font-medium text-sm text-textcolor-1 hidden sm:flex">
-            Add filter
-          </span>
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="h-9 sm:w-auto px-3 rounded-md bg-bgColor-2 flex gap-2 items-center">
+              <Image width={19} height={19} src={"/icons/filter.svg"} alt="" />
+              <span className="font-medium text-sm text-textcolor-1 hidden sm:flex">
+                Add filter
+              </span>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-auto h-96 mt-3  mr-2 py-3 rounded-lg flex px-0"
+            align="start"
+          >
+            <div className="w-full h-full flex">
+              <aside className="h-full md:w-56 w-48 border-r flex flex-col px-2 gap-2">
+                <div className="flex items-center px-3 py-1 gap-2 bg-[#E2E8F0] rounded-lg justify-between">
+                  <div className="flex gap-2">
+                    <Image
+                      src={"/icons/calendar.svg"}
+                      width={16}
+                      height={16}
+                      alt="Schedule"
+                    />
+                    <span className="text-sm">Shedule date</span>
+                  </div>
+                  <span className="text-textcolor-2">1</span>
+                </div>
+                <div className="flex items-center px-3 py-1 gap-2  rounded-lg justify-between">
+                  <div className="flex gap-2">
+                    <Image
+                      src={"/icons/users.svg"}
+                      width={16}
+                      height={16}
+                      alt="Schedule"
+                    />
+                    <span className="text-sm">People</span>
+                  </div>
+                </div>
+                <div className="flex items-center px-3 py-1 gap-2  rounded-lg justify-between">
+                  <div className="flex gap-2">
+                    <Image
+                      src={"/icons/layout-dashboard.svg"}
+                      width={16}
+                      height={16}
+                      alt="Schedule"
+                    />
+                    <span className="text-sm">Services / Products</span>
+                  </div>
+                </div>
+              </aside>
+              <div className="h-full md:w-96 w-72 p-2">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="" className="text-[13px]">
+                    Show orders for
+                  </label>
+                  <Select>
+                    <SelectTrigger className="shadow-sm">
+                      <SelectValue placeholder="All time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value={"20"}>20</SelectItem>
+                        <SelectItem value={"25"}>25</SelectItem>
+                        <SelectItem value={"35"}>35</SelectItem>
+                        <SelectItem value={"40"}>40</SelectItem>
+                        <SelectItem value={"50"}>50</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <div className="h-9 flex gap-6">
           <SearchBox />
           <div className="h-full  items-center gap-8 hidden md:flex">

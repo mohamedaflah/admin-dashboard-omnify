@@ -1,13 +1,10 @@
-import { TableActionButtons } from "@/components/app-component/Table-actionbuttons/TableActionButtons";
+
 import { AdminDataTable } from "@/components/app-component/TableColumns/AdminTable/AdminTable";
 import { adminTableColumns } from "@/components/app-component/TableColumns/AdminTable/Column";
-import { SearchBox } from "@/components/app-component/search-box/SearchBox";
-import { SmallTableMenu } from "@/components/app-component/small-table-menu/TableMenu";
+
 import { TopBarBox } from "@/components/app-component/top-bar/top-bar-title";
 
 import { TableDatas } from "@/constants/TableDemmydata";
-
-import Image from "next/image";
 
 export default function Home() {
   return (
