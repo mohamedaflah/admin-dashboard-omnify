@@ -72,11 +72,17 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
   {
     accessorKey: "services",
     header: () => <TableHeaderTitle image="/icons/hash.svg" title="Services" />,
+    cell: ({ row }) => {
+      return <div className="flex items-center h-full w-[175px]">{row.getValue("services")}</div>;
+    },
   },
   {
     accessorKey: "scheduled",
     header: () => (
       <TableHeaderTitle image="/icons/created.svg" title="Scheduled" />
     ),
+    cell: ({ row }) => {
+      return <div className="flex items-center h-full w-[175px]">{row.getValue("scheduled")}</div>;
+    },
   },
 ];

@@ -43,11 +43,12 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
-import { ordersData } from "../../../../constants/ordersData";
+
 import { filterBarNavigations } from "../../../../constants/filterBarnavigations";
 import { FilterSchedule } from "../../filter-components/Filter-schedule";
 import { FilterPeoples } from "../../filter-components/Filter-peoples";
 import { FilterService } from "../../filter-components/Filter-services";
+import {ScrollArea} from "@/components/ui/scroll-area";
 
 export function AdminDataTable<TData, TValue>({
   columns,
@@ -196,8 +197,8 @@ export function AdminDataTable<TData, TValue>({
         </div>
       </div>
 
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border overflow-auto scrollbar-none" id="ScrollArea">
+        <Table className="">
           <TableHeader className="overflow-hidden">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow

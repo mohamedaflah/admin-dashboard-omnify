@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
@@ -20,7 +16,9 @@ import { Button } from "../../ui/button";
 import { cn } from "../../../lib/utils";
 import { ordersData } from "../../../constants/ordersData";
 export function FilterSchedule() {
-    const [date, setDate] = useState<Date>();
+  const [fromdate, setfromDate] = useState<Date>();
+  const [todate, setToDate] = useState<Date>();
+  // const formattedDate = format(date, 'EEE, dd MMM yyyy');
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -53,18 +51,18 @@ export function FilterSchedule() {
                 variant={"outline"}
                 className={cn(
                   "w-full justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
+                  !fromdate && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                {fromdate ? format(fromdate, "PPP") : <span>Pick a date</span>}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 mode="single"
-                selected={date}
-                onSelect={setDate}
+                selected={fromdate}
+                onSelect={setfromDate}
                 initialFocus
               />
             </PopoverContent>
@@ -80,18 +78,18 @@ export function FilterSchedule() {
                 variant={"outline"}
                 className={cn(
                   "w-full justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
+                  !todate && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                {todate ? format(todate, "PPP") : <span>Pick a date</span>}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className="w-auto p-0" align="end">
               <Calendar
                 mode="single"
-                selected={date}
-                onSelect={setDate}
+                selected={todate}
+                onSelect={setToDate}
                 initialFocus
               />
             </PopoverContent>
