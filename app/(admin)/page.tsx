@@ -1,12 +1,19 @@
-
+"use client"
 import { AdminDataTable } from "@/components/app-component/TableColumns/AdminTable/AdminTable";
 import { adminTableColumns } from "@/components/app-component/TableColumns/AdminTable/Column";
 
 import { TopBarBox } from "@/components/app-component/top-bar/top-bar-title";
 
 import { TableDatas } from "@/constants/TableDemmydata";
-
+import AOS from 'aos'
+import { useEffect } from "react";
+import "aos/dist/aos.css";
 export default function Home() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+    });
+  }, []);
   return (
     <main className="w-full h-full overflow-x-hidden scrollbar-none bg-white py-2 px-3 rounded-md">
       <div className="w-full flex flex-col gap-6">

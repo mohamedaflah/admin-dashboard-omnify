@@ -15,7 +15,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        className="shadow-lg border-[#E5E7EB] border-2 mt-[1.5px]"
+        className="shadow-lg outline-[#E5E7EB] border-none outline outline-2 mt-[6px]"
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
@@ -23,7 +23,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        className="shadow-lg border-[#E5E7EB] border-2"
+        className="shadow-lg  outline-[#E5E7EB] border-none outline outline-2"
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
@@ -37,14 +37,25 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
       <TableHeaderTitle image="/icons/created.svg" title="Created on" />
     ),
     cell: ({ row }) => {
-      return <div className="flex items-center h-full w-[175px]">{row.getValue("created_on")}</div>;
+      return (
+        <div
+          className="flex items-center h-full w-[175px]"
+          
+        >
+          {row.getValue("created_on")}
+        </div>
+      );
     },
   },
   {
     accessorKey: "payer",
     header: () => <TableHeaderTitle image="/icons/user.svg" title="Payer" />,
     cell: ({ row }) => {
-      return <div className="flex items-center h-full w-[130px]">{row.getValue("payer")}</div>;
+      return (
+        <div className="flex items-center h-full w-[130px]">
+          {row.getValue("payer")}
+        </div>
+      );
     },
   },
   {
@@ -65,15 +76,22 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
       <TableHeaderTitle image="/icons/hash.svg" title="Payer Phone" />
     ),
     cell: ({ row }) => {
-      return <div className="flex items-center h-full w-[144px]">{row.getValue("payer_phone")}</div>;
+      return (
+        <div className="flex items-center h-full w-[144px]">
+          {row.getValue("payer_phone")}
+        </div>
+      );
     },
-    
   },
   {
     accessorKey: "services",
     header: () => <TableHeaderTitle image="/icons/hash.svg" title="Services" />,
     cell: ({ row }) => {
-      return <div className="flex items-center h-full w-[175px]">{row.getValue("services")}</div>;
+      return (
+        <div className="flex items-center h-full w-[175px]">
+          {row.getValue("services")}
+        </div>
+      );
     },
   },
   {
@@ -82,7 +100,11 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
       <TableHeaderTitle image="/icons/created.svg" title="Scheduled" />
     ),
     cell: ({ row }) => {
-      return <div className="flex items-center h-full w-[175px]">{row.getValue("scheduled")}</div>;
+      return (
+        <div className="flex items-center h-full w-[175px]">
+          {row.getValue("scheduled")}
+        </div>
+      );
     },
   },
 ];

@@ -48,7 +48,6 @@ import { filterBarNavigations } from "../../../../constants/filterBarnavigations
 import { FilterSchedule } from "../../filter-components/Filter-schedule";
 import { FilterPeoples } from "../../filter-components/Filter-peoples";
 import { FilterService } from "../../filter-components/Filter-services";
-import {ScrollArea} from "@/components/ui/scroll-area";
 
 export function AdminDataTable<TData, TValue>({
   columns,
@@ -113,7 +112,7 @@ export function AdminDataTable<TData, TValue>({
                 {filterNav == "Services / Products" && <FilterService />}
               </div>
             </div>
-            <div className="h-14 flex items-center gap-2 justify-end px-3">
+            <div className="h-14 flex items-center gap-2 justify-end px-3 mt-2 md:mt-1">
               <button className="h-9 px-3 rounded-md bg-[#F4F4F5] text-black font-medium text-sm">
                 Reset to Default
               </button>
@@ -197,17 +196,22 @@ export function AdminDataTable<TData, TValue>({
         </div>
       </div>
 
-      <div className="rounded-md border overflow-auto scrollbar-none" id="ScrollArea">
-        <Table className="">
+      <div className="rounded-md border " id="ScrollArea">
+        <Table className="scrollbar-thin overflow-auto">
           <TableHeader className="overflow-hidden">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
                 className="bg-bgColor-2 overflow-hidden rounded-tr-md rounded-tl-md"
               >
-                {headerGroup.headers.map((header) => {
+                {headerGroup.headers.map((header, index) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      data-aos="fade-up"
+                      data-aos-delay={index * 50} // Example: delay each item by 100ms more than the previous one
+                      data-aos-duration="600"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -227,7 +231,7 @@ export function AdminDataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
+                  {row.getVisibleCells().map((cell, index) => (
                     <TableCell
                       key={cell.id}
                       className="font-medium text-[13px]"
@@ -296,4 +300,3 @@ export function AdminDataTable<TData, TValue>({
     </div>
   );
 }
-export { FilterSchedule };
