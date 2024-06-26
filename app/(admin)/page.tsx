@@ -1,3 +1,6 @@
+import { TableActionButtons } from "@/components/app-component/Table-actionbuttons/TableActionButtons";
+import { SearchBox } from "@/components/app-component/search-box/SearchBox";
+import { SmallTableMenu } from "@/components/app-component/small-table-menu/TableMenu";
 import { TopBarBox } from "@/components/app-component/top-bar/top-bar-title";
 import {
   Popover,
@@ -38,78 +41,9 @@ export default function Home() {
               </span>
             </button>
             <div className="h-9 flex gap-6">
-              <div className="h-full px-3 flex gap-2 md:w-64 w-48 rounded-md shadow-md border">
-                <Image
-                  alt="search"
-                  src={"/icons/search.svg"}
-                  width={17}
-                  height={17}
-                />
-                <input
-                  type="text"
-                  className="h-full w-full text-sm placeholder-textcolor-4 outline-none border-none"
-                  placeholder="Search client"
-                />
-              </div>
-              <div className="h-full  items-center gap-8 hidden md:flex">
-                <div>
-                  <Image
-                    src={"/icons/refresh.svg"}
-                    alt="refresh"
-                    width={19}
-                    height={19}
-                  />
-                </div>
-                <div>
-                  <Image
-                    src={"/icons/columns.svg"}
-                    alt="refresh"
-                    width={19}
-                    height={19}
-                  />
-                </div>
-                <div>
-                  <Image
-                    src={"/icons/download.svg"}
-                    alt="refresh"
-                    width={19}
-                    height={19}
-                  />
-                </div>
-              </div>
-              <Popover>
-                <PopoverTrigger>
-                  <div className="sm:hidden flex items-center cursor-pointer">
-                    <Menu className="w-5" />
-                  </div>
-                </PopoverTrigger>
-                <PopoverContent className="w-16 flex-col flex gap-5 items-center">
-                  <div>
-                    <Image
-                      src={"/icons/refresh.svg"}
-                      alt="refresh"
-                      width={19}
-                      height={19}
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      src={"/icons/columns.svg"}
-                      alt="refresh"
-                      width={19}
-                      height={19}
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      src={"/icons/download.svg"}
-                      alt="refresh"
-                      width={19}
-                      height={19}
-                    />
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <SearchBox />
+              <TableActionButtons />
+              <SmallTableMenu />
             </div>
           </div>
         </div>
