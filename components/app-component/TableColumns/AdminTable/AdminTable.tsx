@@ -35,7 +35,6 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import { SearchBox } from "../../search-box/SearchBox";
-import { TableActionButtons } from "../../Table-actionbuttons/TableActionButtons";
 import { SmallTableMenu } from "../../small-table-menu/TableMenu";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -52,6 +51,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 import { ordersData } from "../../../../constants/ordersData";
+import { filterBarNavigations } from "../../../../constants/filterBarnavigations";
 
 export function AdminDataTable<TData, TValue>({
   columns,
@@ -71,7 +71,7 @@ export function AdminDataTable<TData, TValue>({
 
   const [date, setDate] = useState<Date>();
 
-  const [filterNav, setFilterNav] = useState<string[]>([]);
+  const [filterNav, setFilterNav] = useState<string>("Schedule date");
   return (
     <div className="space-y-6">
       <div className="w-full flex  justify-between">
@@ -90,40 +90,27 @@ export function AdminDataTable<TData, TValue>({
           >
             <div className="w-full h-full flex md:flex-row flex-col border-b">
               <aside className="h-full md:w-56 w-full border-r flex flex-col px-2 gap-2 bg-bgColor-1">
-                <div className="flex items-center px-3 py-1 gap-2 bg-[#E2E8F0] rounded-lg justify-between">
-                  <div className="flex gap-2">
-                    <Image
-                      src={"/icons/calendar.svg"}
-                      width={16}
-                      height={16}
-                      alt="Schedule"
-                    />
-                    <span className="text-sm">Shedule date</span>
+                {filterBarNavigations.map((nav) => (
+                  <div
+                    key={nav.id}
+                    onClick={()=>setFilterNav(nav.title)}
+                    className={cn(
+                      "flex items-center cursor-pointer px-3 py-1 gap-2  rounded-lg justify-between",
+                      { "bg-[#E2E8F0]": nav.title == filterNav }
+                    )}
+                  >
+                    <div className="flex gap-2">
+                      <Image
+                        src={nav.image}
+                        width={16}
+                        height={16}
+                        alt="Schedule"
+                      />
+                      <span className="text-sm">{nav.title}</span>
+                    </div>
+                    <span className="text-textcolor-2">{nav?.count}</span>
                   </div>
-                  <span className="text-textcolor-2">1</span>
-                </div>
-                <div className="flex items-center px-3 py-1 gap-2  rounded-lg justify-between">
-                  <div className="flex gap-2">
-                    <Image
-                      src={"/icons/users.svg"}
-                      width={16}
-                      height={16}
-                      alt="Schedule"
-                    />
-                    <span className="text-sm">People</span>
-                  </div>
-                </div>
-                <div className="flex items-center px-3 py-1 gap-2  rounded-lg justify-between">
-                  <div className="flex gap-2">
-                    <Image
-                      src={"/icons/layout-dashboard.svg"}
-                      width={16}
-                      height={16}
-                      alt="Schedule"
-                    />
-                    <span className="text-sm">Services / Products</span>
-                  </div>
-                </div>
+                ))}
               </aside>
               <div className="h-full md:w-96 w-72 p-2 space-y-5">
                 <div className="flex flex-col gap-2">
