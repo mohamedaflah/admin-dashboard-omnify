@@ -1,13 +1,12 @@
 import { TableActionButtons } from "@/components/app-component/Table-actionbuttons/TableActionButtons";
+import { AdminDataTable } from "@/components/app-component/TableColumns/AdminTable/AdminTable";
+import { adminTableColumns } from "@/components/app-component/TableColumns/AdminTable/Column";
 import { SearchBox } from "@/components/app-component/search-box/SearchBox";
 import { SmallTableMenu } from "@/components/app-component/small-table-menu/TableMenu";
 import { TopBarBox } from "@/components/app-component/top-bar/top-bar-title";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Menu } from "lucide-react";
+
+import { TableDatas } from "@/constants/TableDemmydata";
+
 import Image from "next/image";
 
 export default function Home() {
@@ -45,6 +44,9 @@ export default function Home() {
               <TableActionButtons />
               <SmallTableMenu />
             </div>
+          </div>
+          <div className="w-full ">
+            <AdminDataTable columns={adminTableColumns} data={TableDatas}/>
           </div>
         </div>
       </div>
