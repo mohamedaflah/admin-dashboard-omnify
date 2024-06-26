@@ -147,11 +147,54 @@ export const SideBar = () => {
           ))}
         </div>
       </div>
-      <div className="w-full">
-        <div className="w-full">
-
+      <div className="w-full ">
+        <div className="mb-2 flex w-full h-10 items-center px-4 justify-center">
+          {expandSidebar && (
+            <div className="h-full flex gap-2 items-center w-full">
+              <Image
+                alt="dashboard"
+                width={19}
+                height={19}
+                src={"/icons/layout-dashboard.svg"}
+              />
+              <span>Dashboard</span>
+            </div>
+          )}
+          <div>
+            <Image
+              alt="dashboard"
+              width={19}
+              height={19}
+              src={"/icons/go.svg"}
+            />
+          </div>
         </div>
-        <div className="w-full min-h-14 flex">
+        <div className="w-full h-16 flex items-center bg-white rounded-md px-3 shadow-md mb-3">
+          <div
+            className={cn("size-10 items-center flex", {
+              "justify-center": !expandSidebar,
+            })}
+          >
+            <Image
+              src={"/image/ellips.png"}
+              className="object-cover"
+              alt="admin"
+              height={30}
+              width={30}
+            />
+          </div>
+          {expandSidebar && (
+            <>
+              <div className="flex flex-col">
+                <h1 className="font-medium">Admin name</h1>
+                <span className="text-sm text-textcolor-2">
+                  admin@gmail.com
+                </span>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="w-full min-h-14 flex ">
           <div className="size-12 flex items-center justify-center">
             <Image
               src={"/icons/help-circle.svg"}

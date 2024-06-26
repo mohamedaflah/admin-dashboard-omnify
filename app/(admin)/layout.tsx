@@ -17,7 +17,7 @@ export default function AdminLayout({
     <main className="h-screen w-full flex relative  scrollbar-none bg-bgColor-1" id="ScrollArea">
       {/* Side bar */}
       <SideBar />
-      <section className="w-full  p-3  ">{children}</section>
+      <section className="w-full  p-3  overflow-x-hidden">{children}</section>
     </main>
   );
 }

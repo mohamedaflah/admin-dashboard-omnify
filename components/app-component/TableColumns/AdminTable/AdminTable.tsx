@@ -37,6 +37,7 @@ import Image from "next/image";
 import { SearchBox } from "../../search-box/SearchBox";
 import { TableActionButtons } from "../../Table-actionbuttons/TableActionButtons";
 import { SmallTableMenu } from "../../small-table-menu/TableMenu";
+import { Checkbox } from "@/components/ui/checkbox";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -58,6 +59,7 @@ export function AdminDataTable<TData, TValue>({
     },
   });
 
+  const [selecteCols, setSelectedCols] = useState<string[]>([]);
   return (
     <div className="space-y-6">
       <div className="w-full flex  justify-between">
@@ -89,24 +91,41 @@ export function AdminDataTable<TData, TValue>({
                   />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent className="w-80 mt-3 px-4 mr-2 py-3 rounded-lg">
+                <div className="w-full flex flex-col mb-5">
+                  <h1 className="text-[18px] font-semibold">Edit columns</h1>
+                  <span className="text-sm text-textcolor-2">
+                    Select the columns to rearrange
+                  </span>
+                </div>
                 {table
                   .getAllColumns()
                   .filter((column) => column.getCanHide())
-                  .map((column) => {
+                  .map((col, Idx) => {
                     return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
+                      <div
+                        className="w-full  flex items-center gap-2  rounded-md  my-2"
+                        key={col.id}
                       >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
+                        <Checkbox
+                          onCheckedChange={(value) => {
+                            col.toggleVisibility(!value as boolean);
+                          }}
+                        />
+                        <div className="h-9 capitalize text-[15px] font-medium flex items-center px-3 border w-full rounded-lg">
+                          {col.id}
+                        </div>
+                      </div>
                     );
                   })}
+                <div className="w-full grid grid-cols-2 gap-2 h-9">
+                  <button className="w-full h-full flex items-center justify-center border px-3  rounded-lg text-[13px] font-medium">
+                    Reset to default
+                  </button>
+                  <button className="capitalize bg-[#0F172A] text-white w-full h-full flex items-center justify-center border px-3  rounded-lg text-[13px] font-medium">
+                    apply
+                  </button>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
 
