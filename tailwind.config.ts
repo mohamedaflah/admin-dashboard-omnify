@@ -29,6 +29,7 @@ const config = {
           1: "#F8FAFC",
           2: "#F1F5F9",
         },
+        borderColor: "#E2E8F0",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -19,7 +19,7 @@ export default function AdminLayout({
     <main className="h-screen w-full flex relative">
       {/* Side bar */}
       <SideBar />
-      <section className="w-full">{children}</section>
+      <section className="w-full p-5">{children}</section>
     </main>
   );
 }

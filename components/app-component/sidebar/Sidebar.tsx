@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const SideBar = () => {
   const [expandSidebar, setExpandSidebar] = useState<boolean>(true);
   return (
     <aside
       className={cn(
-        "min-w-64 h-full sticky top-0 left-0 bg-bgColor-1 px-3 pt-5 transition-all duration-300",
+        "hidden md:block min-w-64 h-full sticky top-0 left-0 bg-bgColor-1 px-3 pt-5 transition-all duration-300",
         {
           "min-w-20 items-center": !expandSidebar,
         }
@@ -54,7 +54,7 @@ export const SideBar = () => {
             />
           )}
         </div>
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center gap-1">
           <div
             className={cn(
               "w-full h-10 flex items-center px-3 shadow-md rounded-xl justify-between",
