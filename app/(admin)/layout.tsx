@@ -1,7 +1,6 @@
 import "../App.css";
 import { SideBar } from "@/components/app-component/sidebar/Sidebar";
 import type { Metadata } from "next";
-import { DataProvider } from "./page";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -21,9 +20,7 @@ export default function AdminLayout({
     >
       {/* Side bar */}
       <SideBar />
-      <section className="w-full  p-3  overflow-x-hidden">
-        <DataProvider>{children}</DataProvider>
-      </section>
+      <section className="w-full  p-3  overflow-x-hidden">{children}</section>
     </main>
   );
 }
