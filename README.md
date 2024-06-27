@@ -9,3 +9,13 @@
 #  ______________________________________________
 #  Guid line to clone this repository
 #  ______________________________________________
+
+Step 1
+`git clone https://github.com/mohamedaflah/admin-dashboard-omnify.git`
+
+Step2
+`npm install`
+
+Step3
+`npm run dev`
+
