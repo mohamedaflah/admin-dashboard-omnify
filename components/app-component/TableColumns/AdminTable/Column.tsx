@@ -39,7 +39,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     cell: ({ row }) => {
       return (
         <div
-          className="flex items-center h-full w-[175px]"
+          className="flex items-center h-full w-[168px]"
           
         >
           {row.getValue("created_on")}
@@ -52,7 +52,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     header: () => <TableHeaderTitle image="/icons/user.svg" title="Payer" />,
     cell: ({ row }) => {
       return (
-        <div className="flex items-center h-full w-[130px]">
+        <div className="flex items-center h-full w-[125px]">
           {row.getValue("payer")}
         </div>
       );
@@ -77,7 +77,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex items-center h-full w-[144px]">
+        <div className="flex items-center h-full w-[132px]">
           {row.getValue("payer_phone")}
         </div>
       );
@@ -88,7 +88,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     header: () => <TableHeaderTitle image="/icons/hash.svg" title="Services" />,
     cell: ({ row }) => {
       return (
-        <div className="flex items-center h-full w-[175px]">
+        <div className="flex items-center h-full w-[160px]">
           {row.getValue("services")}
         </div>
       );
@@ -101,7 +101,7 @@ export const adminTableColumns: ColumnDef<TableData>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex items-center h-full w-[175px]">
+        <div className="flex items-center h-full w-[168px]">
           {row.getValue("scheduled")}
         </div>
       );

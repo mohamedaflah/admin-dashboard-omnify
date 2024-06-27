@@ -1,14 +1,17 @@
-"use client"
+"use client";
 import { AdminDataTable } from "@/components/app-component/TableColumns/AdminTable/AdminTable";
 import { adminTableColumns } from "@/components/app-component/TableColumns/AdminTable/Column";
 
 import { TopBarBox } from "@/components/app-component/top-bar/top-bar-title";
 
 import { TableDatas } from "@/constants/TableDemmydata";
-import AOS from 'aos'
+import AOS from "aos";
 import { useEffect } from "react";
 import "aos/dist/aos.css";
+
+
 export default function Home() {
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -37,7 +40,7 @@ export default function Home() {
             />
           </div>
           <div className="w-full ">
-            <AdminDataTable columns={adminTableColumns} data={TableDatas}/>
+            <AdminDataTable columns={adminTableColumns} data={TableDatas} />
           </div>
         </div>
       </div>
