@@ -7,6 +7,8 @@ import {
   getPaginationRowModel,
   useReactTable,
   VisibilityState,
+  ColumnFiltersState,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -54,18 +56,25 @@ export function AdminDataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    []
+  );
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       columnVisibility,
+      columnFilters
     },
   });
 
   const [filterNav, setFilterNav] = useState<string>("Schedule date");
+
   return (
     <div className="space-y-6">
       <div className="w-full flex  justify-between">
@@ -124,7 +133,23 @@ export function AdminDataTable<TData, TValue>({
         </DropdownMenu>
 
         <div className="h-9 flex gap-6">
-          <SearchBox />
+          <div className="h-full px-3 flex gap-2 md:w-64 w-48 rounded-md shadow-md border-t">
+            <Image
+              alt="search"
+              src={"/icons/search.svg"}
+              width={17}
+              height={17}
+            />
+            <input
+              type="text"
+              value={(table.getColumn("payer")?.getFilterValue() as string) ?? ""}
+              onChange={(event) =>
+                table.getColumn("payer")?.setFilterValue(event.target.value)
+              }
+              className="h-full w-full text-sm placeholder-textcolor-4 outline-none border-none"
+              placeholder="Search client"
+            />
+          </div>
           <div className="h-full  items-center gap-8 hidden md:flex">
             <div>
               <Image
