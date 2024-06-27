@@ -56,9 +56,7 @@ export function AdminDataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  );
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
     data,
     columns,
@@ -69,7 +67,7 @@ export function AdminDataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       columnVisibility,
-      columnFilters
+      columnFilters,
     },
   });
 
@@ -142,7 +140,9 @@ export function AdminDataTable<TData, TValue>({
             />
             <input
               type="text"
-              value={(table.getColumn("payer")?.getFilterValue() as string) ?? ""}
+              value={
+                (table.getColumn("payer")?.getFilterValue() as string) ?? ""
+              }
               onChange={(event) =>
                 table.getColumn("payer")?.setFilterValue(event.target.value)
               }
