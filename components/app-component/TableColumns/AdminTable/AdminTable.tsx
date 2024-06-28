@@ -74,8 +74,8 @@ export function AdminDataTable<TData, TValue>({
   const [filterNav, setFilterNav] = useState<string>("Schedule date");
 
   return (
-    <div className="space-y-6">
-      <div className="w-full flex  justify-between">
+    <main className="space-y-6">
+      <section className="w-full flex  justify-between">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="h-9 sm:w-auto px-3 rounded-md bg-bgColor-2 flex gap-2 items-center">
@@ -219,7 +219,7 @@ export function AdminDataTable<TData, TValue>({
           </div>
           <SmallTableMenu />
         </div>
-      </div>
+      </section>
 
       <div className="rounded-md border " id="ScrollArea">
         <Table className="scrollbar-thin overflow-auto">
@@ -322,6 +322,6 @@ export function AdminDataTable<TData, TValue>({
           </Button>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
